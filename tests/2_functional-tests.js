@@ -40,7 +40,7 @@ suite('Functional Tests', function () {
         .end(function (err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.type, 'application/json');
-          assert.equal(res.body.name,'Cristoforo');
+          assert.equal(res.body.name, 'Cristoforo');
           assert.equal(res.body.surname, 'Colombo');
           done();
         });
@@ -63,13 +63,18 @@ suite('Functional Tests', function () {
 });
 
 const Browser = require('zombie');
+Browser.localhost('https://dry-crag-60003.herokuapp.com/', 3000)
+
 const { application } = require('express');
 const { json } = require('body-parser');
+const { suiteSetup } = require('mocha');
 
 suite('Functional Tests with Zombie.js', function () {
   this.timeout(5000);
 
+  const browser = new Browser();
 
+  browser.visit('/');
 
   suite('Headless browser', function () {
     test('should have a working "site" property', function () {
